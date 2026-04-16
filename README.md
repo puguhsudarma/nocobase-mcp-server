@@ -139,16 +139,21 @@ ctx.render(<MyComponent />);
 
 ## Example Prompts
 
+> **How to get UIDs:**
+> - **Block UID** — right-click any block in NocoBase UI → **Copy UID**
+> - **Page UID** — visible in the browser URL when you open a page (e.g. `http://localhost:13000/page/96acpujiwc6` → UID is `96acpujiwc6`)
+
 ### Without Figma MCP
 
 ```
-List all collections in my NocoBase, then create a JS block on the page with UID "abc123"
+List all collections in my NocoBase, then create a JS block on flowPage "96acpujiwc6"
 that shows a summary dashboard with total records from the "users" collection.
 ```
 
 ```
-Get the flowPage with UID "xyz456", add a new JS block below the existing ones,
-and implement a tabbed table showing data from the "orders" and "products" collections.
+Get the flowPage with UID "96acpujiwc6", add a new JS block below the existing ones
+(the grid block UID is "9207d780e4f"), and implement a tabbed table showing data
+from the "orders" and "products" collections.
 ```
 
 ```
@@ -159,14 +164,15 @@ and explain its block structure.
 ### With Figma MCP
 
 ```
-Here's my Figma design: https://www.figma.com/board/xxx/MyApp?node-id=1-2
-Implement it as a JS block on flowPage "abc123". Use React + Ant Design from ctx.libs.
+Here's my Figma design: https://www.figma.com/board/yyOqdhjClverU1ZCHTS4vO/SCM?node-id=1008-6488
+Implement it as a JS block on flowPage "96acpujiwc6" (grid UID: "9207d780e4f").
+Use React + Ant Design from ctx.libs. Use dummy data for now.
 ```
 
 ```
-Fetch the Figma component at node-id 10-5 from file key "aBcDeFg",
-then create a new JS block on my NocoBase page "xyz789" that matches the design.
-Use dummy data for now.
+Fetch the Figma design at the link above, then create a new JS block on my NocoBase
+flowPage and implement the tabs component with the exact columns from the Figma table.
+The block UID I want to update is "hln98t0gqr7".
 ```
 
 ## Contributing
