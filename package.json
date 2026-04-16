@@ -31,7 +31,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/puguhsudarma/nocobase-mcp-server.git"
+    "url": "git+https://github.com/puguhsudarma/nocobase-mcp-server.git"
   },
   "homepage": "https://github.com/puguhsudarma/nocobase-mcp-server#readme",
   "bugs": {
