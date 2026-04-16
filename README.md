@@ -19,7 +19,7 @@ An MCP (Model Context Protocol) server for [NocoBase](https://www.nocobase.com/)
 ### 1. Clone and install dependencies
 
 ```bash
-git clone https://github.com/your-username/nocobase-mcp-server.git
+git clone https://github.com/puguhsudarma/nocobase-mcp-server.git
 cd nocobase-mcp-server
 pnpm install
 ```
