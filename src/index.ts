@@ -73,17 +73,7 @@ server.registerTool(
   async ({ uid }) => ok(await nocoFetch(`/api/uiSchemas:getProperties/${uid}`))
 );
 
-// 5. get_page_properties
-server.registerTool(
-  "get_page_properties",
-  {
-    description: "Get only the direct child properties of a UI schema node by UID (shallow, without the node itself)",
-    inputSchema: { uid: z.string().describe("UI schema UID") },
-  },
-  async ({ uid }) => ok(await nocoFetch(`/api/uiSchemas:getProperties/${uid}`))
-);
-
-// 6. get_parent_schema
+// 5. get_parent_schema
 server.registerTool(
   "get_parent_schema",
   {
@@ -402,7 +392,7 @@ server.registerTool(
 // ── Dynamic tools from OpenAPI/Swagger ───────────────────────────────────────
 
 const MANUAL_TOOLS = new Set([
-  "list_collections","get_collection","list_pages","get_page","get_page_properties",
+  "list_collections","get_collection","list_pages","get_page",
   "get_parent_schema","create_page","insert_new_schema","insert_adjacent_schema",
   "update_ui_schema","batch_patch_ui_schema","remove_ui_schema","save_as_template",
   "list_desktop_routes","get_flow_model","get_flow_model_by_parent","save_flow_model",

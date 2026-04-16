@@ -16,7 +16,48 @@ An MCP (Model Context Protocol) server for [NocoBase](https://www.nocobase.com/)
 
 ## Installation
 
-### 1. Clone and install dependencies
+### Option A — via npm (recommended)
+
+```bash
+npm install -g @reroet/nocobase-mcp-server
+```
+
+Then add to `~/.claude/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "nocobase": {
+      "type": "stdio",
+      "command": "nocobase-mcp-server",
+      "env": {
+        "NOCOBASE_URL": "http://localhost:13000",
+        "NOCOBASE_API_TOKEN": "your-api-token-here"
+      }
+    }
+  }
+}
+```
+
+Or use `npx` without installing globally:
+
+```json
+{
+  "mcpServers": {
+    "nocobase": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@reroet/nocobase-mcp-server"],
+      "env": {
+        "NOCOBASE_URL": "http://localhost:13000",
+        "NOCOBASE_API_TOKEN": "your-api-token-here"
+      }
+    }
+  }
+}
+```
+
+### Option B — from source
 
 ```bash
 git clone https://github.com/puguhsudarma/nocobase-mcp-server.git
@@ -24,9 +65,7 @@ cd nocobase-mcp-server
 pnpm install
 ```
 
-### 2. Configure Claude Code (or any MCP client)
-
-Add to `~/.claude/mcp.json` (Claude Code global MCP config):
+Then add to `~/.claude/mcp.json`:
 
 ```json
 {
@@ -44,7 +83,7 @@ Add to `~/.claude/mcp.json` (Claude Code global MCP config):
 }
 ```
 
-Replace `/absolute/path/to/nocobase-mcp-server` with the actual path where you cloned the repo (e.g. `/Users/yourname/Projects/nocobase-mcp-server`).
+Replace `/absolute/path/to/nocobase-mcp-server` with the actual path (e.g. `/Users/yourname/Projects/nocobase-mcp-server`).
 
 ### Environment Variables
 
@@ -78,7 +117,6 @@ Enable the **API documentation** plugin in NocoBase (**Settings → Plugins**). 
 | ------------------------ | -------------------------------------------------- |
 | `list_pages`             | List all UI schema nodes                           |
 | `get_page`               | Get full nested UI schema tree by UID              |
-| `get_page_properties`    | Get direct child properties of a UI schema node    |
 | `get_parent_schema`      | Get the parent schema of a node                    |
 | `create_page`            | Create a new root-level UI schema node             |
 | `insert_new_schema`      | Create and insert a new UI schema node             |
@@ -141,19 +179,19 @@ ctx.render(<MyComponent />);
 
 > **How to get UIDs:**
 >
-> - **Block UID** — right-click any block in NocoBase UI → **Copy UID**
+> - **Block UID** — right-click any block in NocoBase UI → **Copy UID** (e.g. `add17a3cf3f`)
 > - **Page UID** — visible in the browser URL when you open a page (e.g. `http://localhost:13000/page/96acpujiwc6` → UID is `96acpujiwc6`)
 
 ### Without Figma MCP
 
 ```
-List all collections in my NocoBase, then create a JS block on flowPage "96acpujiwc6"
+List all collections in my NocoBase, then create a JS block on flowPage "<your-page-uid>"
 that shows a summary dashboard with total records from the "users" collection.
 ```
 
 ```
-Get the flowPage with UID "96acpujiwc6", add a new JS block below the existing ones
-(the grid block UID is "9207d780e4f"), and implement a tabbed table showing data
+Get the flowPage with UID "<your-page-uid>", add a new JS block below the existing ones
+(the grid block UID is "<your-grid-uid>"), and implement a tabbed table showing data
 from the "orders" and "products" collections.
 ```
 
@@ -166,14 +204,14 @@ and explain its block structure.
 
 ```
 Here's my Figma design: https://www.figma.com/board/XXXXXXXXXXXXXXXX/MyApp?node-id=8273-xxxx
-Implement it as a JS block on flowPage "96acpujiwc6" (grid UID: "9207d780e4f").
+Implement it as a JS block on flowPage "<your-page-uid>" (grid UID: "<your-grid-uid>").
 Use React + Ant Design from ctx.libs. Use dummy data for now.
 ```
 
 ```
 Fetch the Figma design at the link above, then create a new JS block on my NocoBase
 flowPage and implement the tabs component with the exact columns from the Figma table.
-The block UID I want to update is "hln98t0gqr7".
+The block UID I want to update is "<your-block-uid>".
 ```
 
 ## Contributing
