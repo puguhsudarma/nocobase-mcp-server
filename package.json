@@ -1,6 +1,6 @@
 {
   "name": "@reroet/nocobase-mcp-server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MCP server for NocoBase — manage collections, UI schemas, flowPage blocks, and JS blocks via AI assistants like Claude",
   "type": "module",
   "bin": {
