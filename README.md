@@ -137,6 +137,38 @@ function MyComponent() {
 ctx.render(<MyComponent />);
 ```
 
+## Example Prompts
+
+### Without Figma MCP
+
+```
+List all collections in my NocoBase, then create a JS block on the page with UID "abc123"
+that shows a summary dashboard with total records from the "users" collection.
+```
+
+```
+Get the flowPage with UID "xyz456", add a new JS block below the existing ones,
+and implement a tabbed table showing data from the "orders" and "products" collections.
+```
+
+```
+Show me all desktop routes, then fetch the UI schema tree of the first page
+and explain its block structure.
+```
+
+### With Figma MCP
+
+```
+Here's my Figma design: https://www.figma.com/board/xxx/MyApp?node-id=1-2
+Implement it as a JS block on flowPage "abc123". Use React + Ant Design from ctx.libs.
+```
+
+```
+Fetch the Figma component at node-id 10-5 from file key "aBcDeFg",
+then create a new JS block on my NocoBase page "xyz789" that matches the design.
+Use dummy data for now.
+```
+
 ## Contributing
 
 Contributions are welcome! To add a new tool:
