@@ -1,16 +1,45 @@
 {
-  "name": "nocobase-mcp-server",
+  "name": "@reroet/nocobase-mcp-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "MCP server for NocoBase — manage collections, UI schemas, flowPage blocks, and JS blocks via AI assistants like Claude",
   "type": "module",
-  "main": "index.js",
-  "scripts": {
-    "start": "tsx src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "nocobase-mcp-server": "dist/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "start": "tsx src/index.ts",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "nocobase",
+    "ai",
+    "claude",
+    "no-code",
+    "low-code",
+    "automation"
+  ],
+  "author": "Reroet <wayanpuguhsudarma@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/puguhsudarma/nocobase-mcp-server.git"
+  },
+  "homepage": "https://github.com/puguhsudarma/nocobase-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/puguhsudarma/nocobase-mcp-server/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
@@ -19,6 +48,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
+    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2"
   }
