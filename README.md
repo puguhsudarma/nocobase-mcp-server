@@ -48,10 +48,10 @@ Replace `/absolute/path/to/nocobase-mcp-server` with the actual path where you c
 
 ### Environment Variables
 
-| Variable | Required | Default | Description |
-|---|---|---|---|
-| `NOCOBASE_API_TOKEN` | **Yes** | — | NocoBase API token |
-| `NOCOBASE_URL` | No | `http://localhost:13000` | NocoBase instance base URL |
+| Variable             | Required | Default                  | Description                |
+| -------------------- | -------- | ------------------------ | -------------------------- |
+| `NOCOBASE_API_TOKEN` | **Yes**  | —                        | NocoBase API token         |
+| `NOCOBASE_URL`       | No       | `http://localhost:13000` | NocoBase instance base URL |
 
 ### Getting an API Token
 
@@ -67,51 +67,51 @@ Enable the **API documentation** plugin in NocoBase (**Settings → Plugins**). 
 
 ### Collections
 
-| Tool | Description |
-|---|---|
-| `list_collections` | List all collections |
-| `get_collection` | Get a collection by name |
+| Tool               | Description              |
+| ------------------ | ------------------------ |
+| `list_collections` | List all collections     |
+| `get_collection`   | Get a collection by name |
 
 ### UI Schemas (Classic Pages)
 
-| Tool | Description |
-|---|---|
-| `list_pages` | List all UI schema nodes |
-| `get_page` | Get full nested UI schema tree by UID |
-| `get_page_properties` | Get direct child properties of a UI schema node |
-| `get_parent_schema` | Get the parent schema of a node |
-| `create_page` | Create a new root-level UI schema node |
-| `insert_new_schema` | Create and insert a new UI schema node |
-| `insert_adjacent_schema` | Insert a schema node relative to a target node |
-| `update_ui_schema` | Patch an existing UI schema node |
-| `batch_patch_ui_schema` | Patch multiple UI schema nodes in one request |
-| `remove_ui_schema` | Remove a UI schema node and its descendants ⚠️ |
-| `save_as_template` | Save a UI schema node as a reusable block template |
+| Tool                     | Description                                        |
+| ------------------------ | -------------------------------------------------- |
+| `list_pages`             | List all UI schema nodes                           |
+| `get_page`               | Get full nested UI schema tree by UID              |
+| `get_page_properties`    | Get direct child properties of a UI schema node    |
+| `get_parent_schema`      | Get the parent schema of a node                    |
+| `create_page`            | Create a new root-level UI schema node             |
+| `insert_new_schema`      | Create and insert a new UI schema node             |
+| `insert_adjacent_schema` | Insert a schema node relative to a target node     |
+| `update_ui_schema`       | Patch an existing UI schema node                   |
+| `batch_patch_ui_schema`  | Patch multiple UI schema nodes in one request      |
+| `remove_ui_schema`       | Remove a UI schema node and its descendants ⚠️     |
+| `save_as_template`       | Save a UI schema node as a reusable block template |
 
 ### Desktop Routes / Navigation
 
-| Tool | Description |
-|---|---|
+| Tool                  | Description                                          |
+| --------------------- | ---------------------------------------------------- |
 | `list_desktop_routes` | List all desktop routes (pages, menus, groups, tabs) |
 
 ### Flow Models (flowPage blocks)
 
-| Tool | Description |
-|---|---|
-| `get_flow_model` | Get a flowPage block by UID |
+| Tool                       | Description                                  |
+| -------------------------- | -------------------------------------------- |
+| `get_flow_model`           | Get a flowPage block by UID                  |
 | `get_flow_model_by_parent` | Get a flowPage block by parent ID and subKey |
-| `save_flow_model` | Create or update a flowPage block |
-| `attach_flow_model` | Attach a block to a flowPage container |
-| `move_flow_model` | Move a block to a different position |
-| `duplicate_flow_model` | Deep-copy a block and auto-attach it |
-| `destroy_flow_model` | Delete a block and its children ⚠️ |
+| `save_flow_model`          | Create or update a flowPage block            |
+| `attach_flow_model`        | Attach a block to a flowPage container       |
+| `move_flow_model`          | Move a block to a different position         |
+| `duplicate_flow_model`     | Deep-copy a block and auto-attach it         |
+| `destroy_flow_model`       | Delete a block and its children ⚠️           |
 
 ### JS Blocks
 
-| Tool | Description |
-|---|---|
-| `get_js_block` | Get a JS block schema (classic page) |
-| `update_js_block` | Update JS block code (classic page) |
+| Tool                   | Description                                                                             |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| `get_js_block`         | Get a JS block schema (classic page)                                                    |
+| `update_js_block`      | Update JS block code (classic page)                                                     |
 | `update_flow_js_block` | Update JS block code inside a flowPage — use `ctx.render()` or JSX via `ctx.libs.React` |
 
 > ⚠️ Destructive operations cannot be undone.
@@ -130,7 +130,7 @@ const { useState } = React;
 const { Table, Tag } = antd;
 
 function MyComponent() {
-  const [tab, setTab] = useState('a');
+  const [tab, setTab] = useState("a");
   return <div>...</div>;
 }
 
@@ -140,6 +140,7 @@ ctx.render(<MyComponent />);
 ## Example Prompts
 
 > **How to get UIDs:**
+>
 > - **Block UID** — right-click any block in NocoBase UI → **Copy UID**
 > - **Page UID** — visible in the browser URL when you open a page (e.g. `http://localhost:13000/page/96acpujiwc6` → UID is `96acpujiwc6`)
 
@@ -164,7 +165,7 @@ and explain its block structure.
 ### With Figma MCP
 
 ```
-Here's my Figma design: https://www.figma.com/board/XXXXXXXXXXXXXXXX/MyApp?node-id=1008-6488
+Here's my Figma design: https://www.figma.com/board/XXXXXXXXXXXXXXXX/MyApp?node-id=8273-xxxx
 Implement it as a JS block on flowPage "96acpujiwc6" (grid UID: "9207d780e4f").
 Use React + Ant Design from ctx.libs. Use dummy data for now.
 ```
