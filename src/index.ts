@@ -354,7 +354,7 @@ server.registerTool(
   }
 );
 
-// 23. update_js_block
+// 23. update_js_block (classic page)
 server.registerTool(
   "update_js_block",
   {
@@ -372,6 +372,115 @@ server.registerTool(
       })
     )
 );
+
+// 24. update_flow_js_block
+server.registerTool(
+  "update_flow_js_block",
+  {
+    description: "Update the JavaScript code of a JSBlockModel inside a flowPage. Code runs in NocoBase sandbox — use ctx.render(htmlString) to render output. Example: ctx.render(`<h1>Hello</h1>`);",
+    inputSchema: {
+      uid: z.string().describe("Flow model UID of the JS block (JSBlockModel)"),
+      code: z.string().describe("JavaScript code using ctx.render(htmlString) sandbox API"),
+    },
+  },
+  async ({ uid, code }) =>
+    ok(
+      await nocoFetch("/api/flowModels:save", {
+        method: "POST",
+        body: JSON.stringify({
+          uid,
+          stepParams: {
+            jsSettings: {
+              runJs: { code, version: "v2" },
+            },
+          },
+        }),
+      })
+    )
+);
+
+// ── Dynamic tools from OpenAPI/Swagger ───────────────────────────────────────
+
+const MANUAL_TOOLS = new Set([
+  "list_collections","get_collection","list_pages","get_page","get_page_properties",
+  "get_parent_schema","create_page","insert_new_schema","insert_adjacent_schema",
+  "update_ui_schema","batch_patch_ui_schema","remove_ui_schema","save_as_template",
+  "list_desktop_routes","get_flow_model","get_flow_model_by_parent","save_flow_model",
+  "attach_flow_model","move_flow_model","duplicate_flow_model","destroy_flow_model",
+  "get_js_block","update_js_block",
+]);
+
+function jsonPropToZod(prop: Record<string, unknown>): z.ZodTypeAny {
+  let schema: z.ZodTypeAny;
+  switch (prop.type) {
+    case "string":  schema = z.string(); break;
+    case "integer":
+    case "number":  schema = z.number(); break;
+    case "boolean": schema = z.boolean(); break;
+    case "array":   schema = z.array(z.unknown()); break;
+    case "object":  schema = z.record(z.string(), z.unknown()); break;
+    default:        schema = z.unknown();
+  }
+  if (prop.description) schema = schema.describe(prop.description as string);
+  if (!prop.required)   schema = schema.optional();
+  return schema;
+}
+
+try {
+  const { Converter } = await import("openapi2mcptools");
+
+  const httpClient = {
+    request: async (requestConfig: {
+      url?: string; method?: string;
+      headers?: Record<string, string>; params?: Record<string, string>;
+      data?: Record<string, unknown>;
+    }) => {
+      const { url = "", method = "GET", headers = {}, params = {}, data = {} } = requestConfig;
+      const qs = new URLSearchParams(
+        Object.fromEntries(Object.entries(params).filter(([, v]) => v != null))
+      ).toString();
+      const fullUrl = `${NOCOBASE_URL}${url}${qs ? "?" + qs : ""}`;
+      const hasBody = Object.keys(data).length > 0;
+      const res = await fetch(fullUrl, {
+        method: method.toUpperCase(),
+        headers: { ...reqHeaders, ...headers },
+        body: hasBody ? JSON.stringify(data) : undefined,
+      });
+      const text = await res.text();
+      try { return { data: JSON.parse(text) }; } catch { return { data: text }; }
+    },
+  };
+
+  const swaggerSpec = await nocoFetch("/api/swagger:get");
+  const converter = new Converter({ httpClient });
+  await converter.load(swaggerSpec);
+
+  const toolCaller = converter.getToolsCaller();
+  const dynamicTools = converter.getToolsList();
+  let registered = 0;
+
+  for (const tool of dynamicTools) {
+    if (!tool.name || MANUAL_TOOLS.has(tool.name)) continue;
+    const props = (tool.inputSchema?.properties ?? {}) as Record<string, Record<string, unknown>>;
+    const inputSchema = Object.fromEntries(
+      Object.entries(props).map(([k, v]) => [k, jsonPropToZod(v)])
+    );
+    const toolName = tool.name;
+    server.registerTool(
+      toolName,
+      { description: tool.description ?? toolName, inputSchema },
+      async (args) => {
+        const result = await toolCaller({ params: { name: toolName, arguments: args } });
+        return ok((result as { toolResult?: unknown }).toolResult ?? result);
+      }
+    );
+    registered++;
+  }
+
+  process.stderr.write(`Dynamic tools loaded: ${registered} (swagger paths: ${dynamicTools.length})\n`);
+} catch (e) {
+  process.stderr.write(`Dynamic tools skipped: ${e}\n`);
+}
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
