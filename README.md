@@ -164,7 +164,7 @@ and explain its block structure.
 ### With Figma MCP
 
 ```
-Here's my Figma design: https://www.figma.com/board/yyOqdhjClverU1ZCHTS4vO/SCM?node-id=1008-6488
+Here's my Figma design: https://www.figma.com/board/XXXXXXXXXXXXXXXX/MyApp?node-id=1008-6488
 Implement it as a JS block on flowPage "96acpujiwc6" (grid UID: "9207d780e4f").
 Use React + Ant Design from ctx.libs. Use dummy data for now.
 ```
