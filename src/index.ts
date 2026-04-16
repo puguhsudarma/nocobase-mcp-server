@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
-const NOCOBASE_URL = "http://localhost:13000";
+const NOCOBASE_URL = (process.env.NOCOBASE_URL ?? "http://localhost:13000").replace(/\/$/, "");
 const API_TOKEN = process.env.NOCOBASE_API_TOKEN ?? "";
 
 if (!API_TOKEN) {
